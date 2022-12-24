@@ -1,13 +1,20 @@
 const form = document.getElementById('filter-form');
 const min = document.getElementById('min');
 const max = document.getElementById('max');
-
+const check = document.getElementsByClassName('form-check-input');
 
 //Event listener
-form.addEventListener('submit', function(e) {
 
+const ck = parseInt(check.length);
+console.log(ck);
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
     let allError = 0;
     allError += isEmpty([min, max]);
+    allError += isCheck(ck);
+
+    if (allError == 0)
+        form.submit();
 
     if (allError != 0)
         e.preventDefault();
@@ -17,7 +24,7 @@ form.addEventListener('submit', function(e) {
 function isEmpty(inputArr) {
 
     let error = 0;
-    inputArr.forEach(function (input) {
+    inputArr.forEach(function(input) {
         const formControl = input.parentElement;
 
         if (input.value.trim() === '') {
@@ -32,9 +39,19 @@ function isEmpty(inputArr) {
             small.style.visibility = "hidden";
 
         }
-
-
     });
     return error;
 
+}
+
+function isCheck(input) {
+    let error = 0;
+
+    if (input != 0) {
+        document.getElementById('empty-category').style.visibility = 'hidden';
+    } else {
+        document.getElementById('empty-category').style.visibility = 'visible';
+        ++error;
+    }
+    return error;
 }

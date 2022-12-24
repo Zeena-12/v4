@@ -90,7 +90,7 @@
                         Billiard
                       </label>
                     </div>
-                    <small style="visibility: hidden;">Choose at least one category</small>
+                    <small id="empty-category" style="visibility: hidden;">Choose at least one category</small>
 
                   </li>
                   <div class="dropdown-divider"></div>
