@@ -43,6 +43,7 @@
  <?php
     }
   }
+  // if user type misspelled keyword
   else{ include("./not-found.php");}
     ?>   
     </div>

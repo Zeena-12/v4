@@ -1,3 +1,4 @@
+<!--   // if user type misspelled keyword -->
 <div class="container align-items-center text-center">
   <div class="img mx-auto" style="width: 25rem;">
     <img src="images/error.svg" alt="">
