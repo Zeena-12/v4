@@ -15,16 +15,7 @@ try {
 
 
   if (isset($_POST['aplay'])) {
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
+    
     $str_categ = "'gaming','vr','billiard','room'";
     $usr_categ = "";
     $min = $_POST['min'];
