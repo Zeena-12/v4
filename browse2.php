@@ -21,7 +21,7 @@
 </header>
 <body>
 <!-- cards -->
-<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 mx-auto">
+<div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4 mx-auto">
     <?php 
     if($error==0){
     foreach($query as $card){ ?>
