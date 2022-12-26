@@ -18,10 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $valid = isValidPhone($phone, $errs[]) && $valid;
   $valid = isValidPassword($password, $errs[]) && $valid;
   // Clear null inside array
-  if (isset($errs))
-    for ($i = 0; $i < count($errs); $i++)
+  if (isset($errs)) {
+    $c = count($errs);
+    for ($i = 0; $i < $c; $i++)
       if ($errs[$i] === NULL)
         unset($errs[$i]);
+  }
   // Skip SQL if invalid
   if (!$valid)
     goto output_begin;
