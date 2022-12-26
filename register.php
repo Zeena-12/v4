@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     goto output_begin;
 
   try {
-    require "db.php";
+    require "connection.php";
 
     $query = $db->prepare("INSERT INTO `users`(fname, lname, phone, email, `password`)
       VALUES (?, ?, ?, ?, ?)");

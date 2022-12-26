@@ -1,6 +1,6 @@
 <?php
 
-require "db.php";
+require "connection.php";
 require "util/forms.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
