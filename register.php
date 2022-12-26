@@ -11,13 +11,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $password = $_POST["password"] ?? "";
 
   // Input validation
-  if (
-    !isValidName($fname, 'First Name', $error) ||
-    !isValidName($lname, 'Last Name', $error) ||
-    !isValidPhone($phone, $error) ||
-    !isValidEmail($email, $error) ||
-    !isValidPassword($password, $error)
-  )
+  $valid = true;
+  $valid = isValidName($fname, 'First Name', $errs[]) && $valid;
+  $valid = isValidName($lname, 'Last Name', $errs[]) && $valid;
+  $valid = isValidEmail($email, $errs[]) && $valid;
+  $valid = isValidPhone($phone, $errs[]) && $valid;
+  $valid = isValidPassword($password, $errs[]) && $valid;
+  // Clear null inside array
+  if (isset($errs))
+    for ($i = 0; $i < count($errs); $i++)
+      if ($errs[$i] === NULL)
+        unset($errs[$i]);
+  // Skip SQL if invalid
+  if (!$valid)
     goto output_begin;
 
   try {

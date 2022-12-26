@@ -21,9 +21,21 @@
 </head>
 
 <body>
-  <header>
+  <header style="height:4.4rem">
     <!-- Navbar -->
     <?php require 'nav.php' ?>
   </header>
 
-  <main class="container py-5">
+  <!-- Error message -->
+  <?php if (isset($errs) && $errs !== NULL && !empty($errs)) : ?>
+    <div class="px-3 py-1">
+      <div class="alert alert-danger border" role="alert">
+        <h4 class="alert-heading"> Error </h4>
+        <hr class="my-2">
+        <span class=" text-center">
+          <?= join(" <br> ", $errs) ?></span>
+      </div>
+    </div>
+  <?php endif ?>
+
+  <main class="container py-3">

@@ -7,14 +7,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $email = $_POST['email'] ?? "";
   $password = $_POST['password'] ?? "";
 
+  $valid = true;
   if ($email == "") {
-    $error = "missing email";
-    goto output_begin;
+    $errs[] = "Missing email";
+    $valid = false;
   }
   if ($password == "") {
-    $error = "missing password";
-    goto output_begin;
+    $errs[] = "Missing password";
+    $valid = false;
   }
+  if (!$valid)
+    goto output_begin;
 
   try {
     $query = $db->prepare("SELECT `password`, `uid` AS id FROM `users` WHERE email=?");
@@ -24,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
     if ($query->rowCount() === 0) {
       // $error = "Email not found";
-      $error = "Invalid email or password";
+      $errs[] = "Invalid email or password";
       goto output_begin;
     }
 
@@ -39,7 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $_SESSION['userType'] = 'customer';
       header("location: ./");
     } else {
-      $error = "Invalid email or password";
+      $errs[] = "Invalid email or password";
+      goto output_begin;
     }
   } catch (PDOException $e) {
     die($e->getMessage());

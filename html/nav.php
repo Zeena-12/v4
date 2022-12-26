@@ -116,6 +116,4 @@
     <input type="submit" name="submit-search" value="Search" class="btn btn-info"></input>
   </form>
 </nav>
-<br>
-<br>
 <script src="./valide-filter.js"></script>
