@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 23, 2022 at 11:24 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Dec 23, 2022 at 08:05 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,8 +18,35 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `meproject`
+-- Database: `project`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `availability`
+--
+
+CREATE TABLE `availability` (
+  `pid` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `timeslot` smallint(5) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `availability`
+--
+
+INSERT INTO `availability` (`pid`, `date`, `timeslot`) VALUES
+(1, '2022-12-11', 1),
+(1, '2022-12-14', 27),
+(1, '2022-12-15', 60431),
+(1, '2022-12-16', 49151),
+(1, '2022-12-20', 7),
+(1, '2022-12-22', 1),
+(2, '2022-12-14', 2023),
+(2, '2022-12-15', 12596),
+(2, '2022-12-22', 6);
 
 -- --------------------------------------------------------
 
@@ -28,29 +55,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `comments` (
-  `cid` int(11) NOT NULL,
   `pid` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
-  `description` text NOT NULL,
-  `rating` int(11) NOT NULL
+  `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `comments`
---
-
-INSERT INTO `comments` (`cid`, `pid`, `uid`, `description`, `rating`) VALUES
-(2, 2, 1, 'This is my best place ', 5),
-(3, 2, 3, 'The atmosphere is  very nice. The service staff are also very interested. and dedicated to customers makes you go once and then want to go.', 5),
-(4, 3, 2, 'wow this places is wonderful, I recommend every one to visit this places, ', 4),
-(5, 4, 1, 'wow this places is wonderful, I recommend every one to visit this places, ', 3),
-(6, 4, 1, 'wow this places is wonderful, I recommend every one to visit this places, ', 3),
-(7, 6, 1, 'wow this places is wonderful, I recommend every one to visit this places, ', 2),
-(8, 2, 2, 'wow this places is wonderful, I recommend every one to visit this places, ', 5),
-(9, 6, 1, 'wow this places is wonderful, I recommend every one to visit this places, ', 2),
-(10, 3, 2, 'wow this places is wonderful, I recommend every one to visit this places, ', 2),
-(11, 1, 2, 'Wow Very Nice, It is too nice!!!!!', 2),
-(12, 5, 2, 'Wow Very Nice, It is too nice!!!!!', 4);
 
 -- --------------------------------------------------------
 
@@ -74,13 +82,8 @@ CREATE TABLE `places` (
 --
 
 INSERT INTO `places` (`pid`, `name`, `address`, `image`, `description`, `location`, `category`, `price`) VALUES
-(1, 'Billiard1', 'Road:878', 'pc.JPG', 'The best gaming experience ', 'Zallage', 'billiard', 10),
-(2, 'Gaming2', 'Road:878', 'room.jpg', 'The best gaming experience ', 'Zallage', 'gaming', 20),
-(3, 'Gaming3', 'Road:878', 'room.jpg', 'The best gaming experience ', 'Zallage', 'gaming', 30),
-(4, 'Gaming4', 'Road:878', 'vr.jpeg', 'The best gaming experience ', 'Zallage', 'vr', 23),
-(5, 'Gaming2', 'Road:878', 'room.jpg', 'The best gaming experience ', 'Zallage', 'gaming', 15),
-(6, 'VR Game', 'road: 545 Block: 544', 'vr.jpeg', 'Games are so nice here, every one must visit these places', 'East Riffa', 'vr', 12),
-(7, 'Gaming18', 'Block: 909', 'img.png', 'Best Games', 'Arad', 'gaming', 12);
+(1, 'Gaming Place 1', '??', 'img.png', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s', '??', 'gaming', 12),
+(2, 'Billiard Abo Ali', '??', 'brazil.png', 'Prepares an SQL statement to be executed by the PDOStatement::execute() method. The statement template can contain zero or more named (:name) or question mark (?) parameter markers for which real values will be substituted when the statement is executed. Both named and question mark parameter markers cannot be used within the same statement template; only one or the other parameter style. Use these parameters to bind any user-input, do not include the user-input directly in the query.', '??', 'billiard', 8);
 
 -- --------------------------------------------------------
 
@@ -93,9 +96,28 @@ CREATE TABLE `reservation` (
   `uid` int(11) NOT NULL,
   `pid` int(11) NOT NULL,
   `date` date NOT NULL,
-  `time` time NOT NULL,
-  `hours` int(11) NOT NULL
+  `time` enum('8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23') NOT NULL,
+  `hours` enum('1','2','3','') NOT NULL,
+  `rating` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reservation`
+--
+
+INSERT INTO `reservation` (`rid`, `uid`, `pid`, `date`, `time`, `hours`, `rating`) VALUES
+(1, 1, 1, '2022-12-15', '21', '3', NULL),
+(2, 1, 1, '2022-12-11', '8', '1', NULL),
+(3, 1, 1, '2022-12-16', '8', '3', 4),
+(4, 1, 1, '2022-12-16', '19', '1', NULL),
+(5, 1, 1, '2022-12-16', '11', '3', NULL),
+(6, 1, 1, '2022-12-16', '23', '1', NULL),
+(7, 1, 1, '2022-12-16', '16', '3', NULL),
+(8, 1, 1, '2022-12-16', '14', '2', NULL),
+(9, 1, 1, '2022-12-16', '20', '2', NULL),
+(10, 1, 1, '2022-12-20', '8', '3', NULL),
+(11, 2, 1, '2022-12-22', '8', '1', 3),
+(12, 2, 2, '2022-12-22', '9', '2', NULL);
 
 -- --------------------------------------------------------
 
@@ -117,21 +139,24 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`uid`, `fname`, `lname`, `phone`, `email`, `password`) VALUES
-(1, 'Zeena', 'Ghulam Haider', '343343', 'zee@gmail.com', '123'),
-(2, 'Sara', 'Ali', '33432543', 'sara@gmail.com', '123'),
-(3, 'Mohammed', 'Ali', '34543756', 'moh@gmail.com', '123');
+(1, 'john', 'cena', '33445566', 'johncena@gmail.com', ''),
+(2, 'the', 'wok', '33333333', 'wok@gmail.com', '$2y$10$IiKzpbVuQrK2j4xOVfsroOntrvIWqscubNbFRCvLH/v2sSwWfZi.S');
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `availability`
+--
+ALTER TABLE `availability`
+  ADD PRIMARY KEY (`pid`,`date`);
+
+--
 -- Indexes for table `comments`
 --
 ALTER TABLE `comments`
-  ADD PRIMARY KEY (`cid`),
-  ADD KEY `pidc` (`pid`),
-  ADD KEY `uidc` (`uid`);
+  ADD PRIMARY KEY (`pid`,`uid`);
 
 --
 -- Indexes for table `places`
@@ -158,32 +183,32 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `comments`
---
-ALTER TABLE `comments`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
 -- AUTO_INCREMENT for table `places`
 --
 ALTER TABLE `places`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `availability`
+--
+ALTER TABLE `availability`
+  ADD CONSTRAINT `pida` FOREIGN KEY (`pid`) REFERENCES `places` (`pid`);
 
 --
 -- Constraints for table `comments`
