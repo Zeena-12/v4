@@ -27,13 +27,20 @@
   </header>
 
   <!-- Error message -->
-  <?php if (isset($errs) && $errs !== NULL && !empty($errs)) : ?>
+  <?php if (isset($valid) && !$valid && !empty($errs)) : ?>
     <div class="px-3 py-1">
       <div class="alert alert-danger border" role="alert">
         <h4 class="alert-heading"> Error </h4>
         <hr class="my-2">
-        <span class=" text-center">
-          <?= join(" <br> ", $errs) ?></span>
+        <?= join(" <br> ", $errs) ?>
+      </div>
+    </div>
+  <?php elseif (isset($success)) : ?>
+    <div class="px-3 py-1">
+      <div class="alert alert-danger border" role="alert">
+        <h4 class="alert-heading"> Error </h4>
+        <hr class="my-2">
+        <?= $success ?>
       </div>
     </div>
   <?php endif ?>

@@ -108,3 +108,118 @@ function limitedToChars(string $subject, string $allowedCharacters, string $fiel
 
   return true;
 }
+
+
+// Name validator
+function validateName(&$vName, &$error)
+{
+  $vName = trim($vName);
+  if (!((strlen($vName) <= 30) && (preg_match("/^([a-z0-9]\s?){1,30}$/i", $vName)))) {
+    $error = "Name: Invalid place name";
+    return false;
+  }
+  return true;
+}
+
+// Description validator
+function validateDesc(&$vDesc, &$error)
+{
+  $vDesc = trim($vDesc);
+  if (strlen($vDesc) >= 200) {
+    $error = "Description: The description is too long";
+    return false;
+  } else if (strlen($vDesc) <= 20) {
+    $error = "Description: The description is too short";
+    return false;
+  }
+  return true;
+}
+
+// Address validator
+function validateAdrs($i, &$vAdrs, &$error)
+{
+  trim($vAdrs);
+  switch ($i) {
+    case 0:
+      if (!preg_match("/^\d{3,4}$/", $vAdrs)) {
+        $error = "Invalid Block No.";
+        return false;
+      }
+      break;
+    case 1:
+      if (!preg_match("/^\d{1,4}$/", $vAdrs)) {
+        $error = "Invalid Street/Road No.";
+        return false;
+      }
+      break;
+    case 2:
+      if (!preg_match("/^\d{1,4}$/", $vAdrs)) {
+        $error = "Invalid Building/House No.";
+        return false;
+      }
+      break;
+    case 3:
+      if (!preg_match("/^\d{0,2}[a-z]?$/i", $vAdrs) && !empty($vAdrs)) {
+        $error = "Invalid Flat No.";
+        return false;
+      }
+  }
+  return true;
+}
+
+// Location validator
+function validateLoca(&$vLoca, &$error)
+{
+  $vLoca = trim($vLoca);
+  if (!preg_match("/^(https:\/\/goo\.gl\/maps\/[a-zA-Z0-9]{17}\/?)$/", $vLoca)) {
+    $error = "Location: Invalid location link";
+    return false;
+  }
+  return true;
+}
+
+// Price validator
+function validatePrice(&$vPrice, &$error)
+{
+  $vPrice = trim($vPrice);
+  if (!preg_match("/^(\d{0,2}(\.\d{0,3})?)$/", $vPrice) && $vPrice != 0 && $vPrice != NULL) {
+    $error = "Price: Invalid Price";
+    return false;
+  }
+  return true;
+}
+
+// Category validator
+function validateCate(&$vCate, &$error)
+{
+  if (!preg_match("/^(vr|gaming|billiard|room)$/", $vCate)) {
+    $error = "Category: Please chose a category";
+    return false;
+  }
+  return true;
+}
+
+// Image validator
+function validateImg(&$keep, $pImg, &$vImg, $MAX, &$error)
+{
+  if ($vImg == NULL || $vImg['size'] == 0) {
+    if ($pImg != NULL) {
+      $keep = true;
+      return true;
+    }
+    $error = " Please upload an image";
+    return false;
+  }
+  if ($vImg['error'] != UPLOAD_ERR_OK) {
+    if ($vImg['error'] == $MAX) $error = "you have exceeded maximum size <br>";
+    $error .= "error: $vImg[error] <br>";
+    $error .= "<br> file was not uploaded properly <br>";
+  }
+  $accepted_types = ["image/png", "image/gif", "image/jpeg", "image/pjpeg"];
+  $type = mime_content_type($vImg['tmp_name']);
+  if (!in_array($type, $accepted_types)) {
+    $error .= "<br> Please upload an image not $type";
+  }
+  if (isset($error)) return false;
+  else return true;
+}

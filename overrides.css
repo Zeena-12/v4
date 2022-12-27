@@ -165,4 +165,16 @@ input:checked ~ .btn-secondary{
 
 
 
+/* Override default margin from browser */
+form {
+    margin-block-end: 0;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: var(--gray-800);
+    color: var(--white);
+}
+.nav-pills button{
+    color: var(--white);
+}
 
