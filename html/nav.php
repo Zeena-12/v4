@@ -36,8 +36,8 @@
         <a class="nav-link" href="#">Contact Us</a>
       </li>
 
-      <li class="nav-item dropdown" >
-        <div >
+      <li class="nav-item dropdown">
+        <div>
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
             <!-- Filter -->
             Filter
@@ -55,8 +55,7 @@
                   </div>
                   <div class="form-outline">
                     <label class="form-label" for="max"> Maximum Price</label>
-                    <input type="number" name='max' id="max" class="form-control" placeholder='Maximum Price' min="1" />
-                    <small style="visibility: hidden;color:orange;" >please enter a number</small>
+                    <input type="number" name='max' id="max" class="form-control" placeholder='Maximum Price' min="1" /> <small style="visibility: hidden;color:orange;">please enter a number</small>
                   </div>
 
                   <div class="dropdown-divider"></div>
@@ -95,25 +94,26 @@
                   </li>
                   <div class="dropdown-divider"></div>
                   <button type="submit" class="btn btn-info w-50" name="aplay" style="margin-left:auto;margin-right:auto">Apply</button>
+
+                </ul>
+              </div>
+            </div>
+
           </form>
-
+        </div>
+      </li>
     </ul>
-  </div>
-  </div>
-    </div>
-
-  </li>
-  </ul>
-  <!-- Search Bar -->
-  <form method="post" action="./browse2.php" class="form-inline my-2 my-lg-0">
-    <div>
-      <input class="form-control" name="search-val" id="live_search" type="text" placeholder="Search" aria-label="Search" style="position:relative;">
-      <div class="list-group position-absolute mt-1" id="searchresult">
-        <!-- search result will show here  -->
+    <!-- Search Bar -->
+    <form method="post" action="./browse2.php" class="form-inline my-2 my-lg-0">
+      <div>
+        <input class="form-control" name="search-val" id="live_search" type="text" placeholder="Search" aria-label="Search" style="position:relative;">
+        <div class="list-group position-absolute mt-1" id="searchresult">
+          <!-- search result will show here  -->
+        </div>
       </div>
-    </div>
-    <!-- orignal -->
-    <input type="submit" name="submit-search" value="Search" class="btn btn-info"></input>
-  </form>
+      <!-- orignal -->
+      <input type="submit" name="submit-search" value="Search" class="btn btn-info"></input>
+    </form>
+  </div>
 </nav>
 <script src="./valide-filter.js"></script>
