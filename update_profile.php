@@ -9,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $lname = $_POST["lname"] ?? "";
   $phone = $_POST["phone"] ?? "";
   $email = $_POST["email"] ?? "";
-  $password = $_POST["password"] ?? "";
 
   // Input validation
   $valid = true;
@@ -17,9 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $valid = isValidName($lname, 'Last Name', $errs[]) && $valid;
   $valid = isValidEmail($email, $errs[]) && $valid;
   $valid = isValidPhone($phone, $errs[]) && $valid;
-  $updatePassword = $password !== "";
-  if ($updatePassword)
-    $valid = isValidPassword($password, $errs[]) && $valid;
 
   // Clear null inside array
   if (isset($errs)) {
@@ -35,14 +31,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   try {
     require "connection.php";
 
-    $sql = "
+    $sql = <<<SQL
       UPDATE  `users`
       SET     fname = :fname,
               lname = :lname,
               phone = :phone,
               email = :email
-              " . ($updatePassword ? ", password = :password " : "") . "
-      WHERE   `uid` = :uid";
+      WHERE   `uid` = :uid
+    SQL;
+
     $sql_args = [
       'fname' => $fname,
       'lname' => $lname,
@@ -50,8 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       'email' => $email,
       'uid' => $_SESSION['userId'],
     ];
-    if ($updatePassword)
-      $sql_args['password'] = password_hash($password, PASSWORD_DEFAULT);
     // var_dump($sql, $sql_args);
     // die();
     $query = $db->prepare($sql);
@@ -125,16 +120,6 @@ if (isset($error))
       <div class="form-group">
         <label for="phone-input">Phone number</label>
         <input class="form-control" type="text" id="phone-input" name="phone" <?= inject_value($phone) ?>>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="pass-input">Password</label>
-          <input type="password" class="form-control" id="pass-input" name="password">
-        </div>
-        <div class="form-group col-md-6">
-          <label for="pass-conf">Confirm password</label>
-          <input type="password" class="form-control" id="pass-conf">
-        </div>
       </div>
       <div class="form-group">Already have an account? <a href="./login.php">Log in</a> </div>
       <div class="form-group">
